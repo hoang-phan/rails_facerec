@@ -1,3 +1,4 @@
 Rails.application.routes.draw do
-  resource :train, only: :create
+  resource :recognize, only: :create
+  resources :images, only: [:index, :create]
 end

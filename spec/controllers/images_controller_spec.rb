@@ -1,11 +1,19 @@
 require 'rails_helper'
 
-describe TrainsController, type: :controller do
+describe ImagesController, type: :controller do
+  describe 'GET index' do
+    it 'returns all images' do
+      get :index
+      expect(assigns(:images).to_sql).to eq Image.all.to_sql
+    end
+  end
+
   describe 'POST create' do
     let(:params) do
       {
-        name: person_name,
-        data: data
+        image: {
+          binary_data: data
+        }
       }
     end
 
@@ -20,10 +28,8 @@ describe TrainsController, type: :controller do
         expect {
           post :create, params
         }.to change(Image, :count).by(1)
-          .and change(Person, :count).by(1)
         expect(response).to be_success
         expect(image.binary_data).to eq data
-        expect(image.person).to eq person
       end
     end
 

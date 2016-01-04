@@ -1,4 +1,8 @@
-class TrainsController < ApplicationController
+class ImagesController < ApplicationController
+  def index
+    @images = Image.all
+  end
+
   def create
     if image.save
       render json: { message: 'Success' }
@@ -9,11 +13,11 @@ class TrainsController < ApplicationController
 
   private
 
-  def person
-    @person ||= Person.find_or_create_by(name: params[:name])
+  def image
+    @image ||= Image.new(image_params)
   end
 
-  def image
-    @image ||= Image.new(binary_data: params[:data], person: person)
+  def image_params
+    params.require(:image).permit(:binary_data)
   end
 end

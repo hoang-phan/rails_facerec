@@ -11,6 +11,7 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'ruby-opencv'
+gem 'haml-rails'
 
 group :development, :test do
   gem 'byebug'
@@ -26,4 +27,5 @@ group :test do
   gem 'shoulda-matchers'
   gem 'simplecov'
   gem 'factory_girl_rails'
+  gem 'faker'
 end
