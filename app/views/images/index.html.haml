@@ -1,3 +1,8 @@
 - @images.each do |image|
-  %p
-    = image_tag "data:image/jpeg;base64,#{Base64.encode64(image.binary_data)}"
+  %p= image_tag "data:image/jpeg;base64,#{Base64.encode64(image.binary_data)}"
+
+  = form_for image, remote: true do |f|
+    %span= f.text_field :person_name, autocomplete: true
+    %span &nbsp;&nbsp;&nbsp;
+    = f.submit 'Update'
+    = link_to 'Delete', image_path(image), method: :delete, data: { confirm: 'Are you sure?' }
