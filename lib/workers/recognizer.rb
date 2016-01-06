@@ -7,7 +7,7 @@ class Recognizer
   def perform(image_id)
     image = Image.find_by_id(image_id)
     if image && Image.classified.exists?
-      analyzer = EigenFaces.new
+      analyzer = LBPH.new
       analyzer.train(*build_samples)
       id, confidence = analyzer.predict(CvMat.decode_image(image.binary_data, CV_LOAD_IMAGE_GRAYSCALE))
       send_push_messages(id)
