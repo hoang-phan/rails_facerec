@@ -23,6 +23,7 @@ describe ImagesController, type: :controller do
       let(:image) { Image.last }
 
       it 'returns success' do
+        expect(Recognizer).to receive(:perform_async)
         expect {
           post :create, params
         }.to change(Image, :count).by(1)

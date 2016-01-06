@@ -7,6 +7,7 @@ class ImagesController < ApplicationController
 
   def create
     if image.save
+      Recognizer.perform_async(image.id)
       render json: { message: 'Success' }
     else
       render json: { errors: image.errors.full_messages.join('. ') }, status: :unprocessable_entity
