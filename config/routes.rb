@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
   resource :recognize, only: :create
-  resources :images, only: [:index, :create]
+  resources :images, only: [:index, :create, :update, :destroy]
 end

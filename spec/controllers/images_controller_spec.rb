@@ -17,12 +17,10 @@ describe ImagesController, type: :controller do
       }
     end
 
-    let(:person_name) { 'John Doe' }
     let(:data) { 'my_data' }
 
     context 'image saved successfully' do
       let(:image) { Image.last }
-      let(:person) { Person.last }
 
       it 'returns success' do
         expect {
@@ -49,6 +47,48 @@ describe ImagesController, type: :controller do
         expect(response).to be_unprocessable
         expect(json['errors']).to eq 'a. b. c'
       end
+    end
+  end
+
+  describe 'PUT update' do
+    let(:params) do
+      {
+        image: {
+          person_name: person_name
+        },
+        id: image.id
+      }
+    end
+
+    let(:person_name) { 'John Doe' }
+    let!(:image) { create(:image) }
+
+    it 'updates image' do
+      expect {
+        put :update, params
+      }.to change {
+        image.reload.person_name
+      }.to(person_name)
+
+      expect(response).to redirect_to(images_path)
+    end
+  end
+
+  describe 'DELETE destroy' do
+    let(:params) do
+      {
+        id: image.id
+      }
+    end
+
+    let!(:image) { create(:image) }
+
+    it 'updates image' do
+      expect {
+        delete :destroy, params
+      }.to change(Image, :count).by(-1)
+
+      expect(response).to redirect_to(images_path)
     end
   end
 end
