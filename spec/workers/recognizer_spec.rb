@@ -10,4 +10,22 @@ describe Recognizer do
       subject.perform(sample_image.id)
     end
   end
+
+  describe '#send_push_messages' do
+    let!(:image) { create(:image, binary_data: data) }
+    let(:data) { 'data' }
+
+    it 'sends image data to devices' do
+      expect($gcm).to receive(:send).with(
+        Device.pluck(:register_id), 
+        {
+          data: {
+            data: data
+          },
+          collapse_key: image.person_name
+        }
+      )
+      subject.send_push_messages(image.id)
+    end
+  end
 end
