@@ -15,6 +15,10 @@ class Recognizer
   end
 
   def send_push_messages(image_id)
+    image = Image.find_by_id(image_id)
+    if image
+      $gcm.send(Device.pluck(:register_id), { data: { data: image.binary_data }, collapse_key: image.person_name } )
+    end
   end
 
   def build_samples
