@@ -12,15 +12,14 @@ describe Recognizer do
   end
 
   describe '#send_push_messages' do
-    let!(:image) { create(:image, binary_data: data) }
-    let(:data) { 'data' }
+    let!(:image) { create(:image) }
 
     it 'sends image data to devices' do
       expect($gcm).to receive(:send).with(
-        Device.pluck(:register_id), 
+        Device.pluck(:register_id),
         {
           data: {
-            data: data
+            data: image.id
           },
           collapse_key: image.person_name
         }
