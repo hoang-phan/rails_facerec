@@ -34,3 +34,5 @@ module RailsFacerec
     config.eager_load_paths += ["#{config.root}/lib/workers"]
   end
 end
+
+OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
